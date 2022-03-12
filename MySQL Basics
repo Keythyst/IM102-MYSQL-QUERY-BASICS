@@ -1,0 +1,169 @@
+Q1.
+SELECT FirstName, LastName, HireDate
+	From employees
+    Order By HireDate desc;
+
+Q2.
+SELECT OrderId, OrderDate, ShippedDate, CustomerID, Freight
+	FROM orders
+    ORDER BY Freight desc;
+Q3.
+SELECT CompanyName, Fax, Phone,Country, HomePage
+	FROM suppliers
+	ORDER BY Country ASC, CompanyName;
+Q4.
+SELECT CompanyName, ContactName
+FROM Customers
+WHERE City = 'Buenos Aires';
+Q5.
+SELECT ProductName, UnitPrice, QuantityPerUnit
+	FROM products
+	WHERE UnitsInStock = 0;
+Q6.
+SELECT OrderDate, ShippedDate, CustomerID, Freight
+	FROM Orders
+	WHERE OrderDate = '1997-02-04';
+Q7. 
+SELECT FirstName,LastName,Country
+	FROM employees
+	WHERE Country NOT IN ("USA");
+Q8.
+SELECT EmployeeID,OrderID,CustomerID,RequiredDate,ShippedDate
+	FROM Orders
+	WHERE ShippedDate > RequiredDate;
+Q9.
+SELECT City, CompanyName, ContactName
+	FROM Customers
+	WHERE City LIKE 'A%' OR City LIKE 'B%';
+Q10.
+SELECT *
+	 FROM  Orders
+	 WHERE Freight > 500;
+Q11.
+SELECT ProductName, UnitsInStock,UnitsOnOrder,ReorderLevel
+	FROM Products
+	WHERE UnitsInStock < ReorderLevel;
+Q12.
+SELECT CompanyName,ContactName,Fax
+	FROM Customers
+	WHERE Fax IS NOT NULL;
+Q13.
+SELECT FirstName, LastName
+	FROM Employees
+	WHERE ReportsTo IS NULL;
+Q14.
+SELECT CompanyName,ContactName,Fax
+	FROM Customers
+	WHERE Fax IS NOT NULL
+    ORDER BY CompanyName;
+Q15.
+SELECT City, CompanyName, ContactName
+	FROM Customers
+	WHERE City LIKE 'A%' OR City LIKE'B%'
+	ORDER BY ContactName desc;
+Q16.
+SELECT
+	FirstName, LastName, BirthDate
+	FROM
+	Employees
+	WHERE BirthDate BETWEEN '1950-01-01' AND '1959-12-31'
+Q17.
+SELECT s.SupplierID, p.ProductName, S.CompanyName
+	FROM Suppliers s
+	JOIN Products p
+	ON s.SupplierID = p.SupplierID
+	WHERE s.CompanyName IN ('Exotic Liquids','Grandma Kelly''s Homestead', 'Tokyo Traders')
+	ORDER BY s.SupplierID;
+Q18.
+SELECT ShipPostalCode,OrderID, OrderDate 
+  From Orders 
+  where ShipPostalCode like '%02389%';
+Q19.
+SELECT ContactName, ContactTitle, CompanyName
+	FROM
+	Customers
+	WHERE ContactTitle NOT LIKE '%sales%';
+Q20.
+SELECT
+	LastName, FirstName, City
+	FROM Employees
+	WHERE CITY NOT IN ('Seattle');
+Q21.
+SELECT CompanyName, ContactTitle, City, Country
+	FROM Customers
+	WHERE Country IN ('Mexico', 'Spain')
+	AND City <> 'Madrid';
+Q22.
+SELECT EmployeeID, FirstName, LastName, Extension
+	FROM Employees;
+Q23.
+SELECT UnitsInStock, UnitPrice,
+  UnitsInStock * UnitPrice AS TotalPrice,
+  FLOOR(UnitsInStock * UnitPrice) AS TotalPriceDown,
+  ceiling(UnitsInStock * UnitPrice) AS TotalPriceUp
+  FROM Products
+  ORDER BY TotalPrice DESC
+Q24.
+SELECT 
+datediff(HireDate,BirthDate)/362 AS HireAgeAccurate,
+datediff(HireDate,BirthDate)/360 AS HireAgeInaccurate
+FROM Employees;
+Q25.
+SELECT FirstName, LastName, BirthDate
+FROM Employees
+WHERE extract(MONTH FROM BirthDate) = extract(MONTH FROM NOW());
+Q26.
+SELECT lower(ContactTitle) AS Title
+FROM Customers;
+Q27.
+SELECT CompanyName
+FROM Customers;
+Q28.
+SELECT ProductName
+FROM Products
+WHERE CategoryID = (SELECT CategoryID
+ FROM Categories
+ WHERE CategoryName = 'Seafood');
+Q29.
+SELECT CompanyName
+FROM Suppliers
+WHERE SupplierID IN (SELECT SupplierID
+FROM Products
+WHERE CategoryID = 8);
+Q30.
+SELECT CompanyName
+FROM Suppliers
+WHERE SupplierID IN (SELECT SupplierID
+FROM Products
+WHERE CategoryID = (SELECT CategoryID
+FROM Categories
+WHERE CategoryName = 'Seafood'));
+Q31.
+SELECT e.FirstName, e.LastName, o.OrderID
+FROM Employees e JOIN Orders o ON
+(e.EmployeeID = o.EmployeeID)
+WHERE o.RequiredDate < o.ShippedDate
+ORDER BY e.LastName, e.FirstName;
+Q32.
+SELECT C.CompanyName, count(C.CustomerID) AS NumberofOrders
+FROM Customers C
+INNER JOIN Orders o
+ON O.CustomerID = C.CustomerID
+WHERE O.OrderDate >= '1996-12-31'
+GROUP BY C.CustomerID, C.CompanyName
+having count(C.CustomerID) >10;
+Q33.
+SELECT * FROM Customers;
+SELECT * FROM Orders;
+SELECT Customers.CompanyName, Orders.OrderID, Orders.Freight
+FROM Customers
+INNER JOIN orders ON customers.CustomerID = orders.CustomerID 
+WHERE Freight <10000;
+Q34.
+Q35.
+SELECT CategoryName, Description
+	FROM northwind.categories
+	ORDER BY CategoryName;
+Q36.
+SELECT ContactName, CompanyName, ContactTitle,Phone
+FROM Customers
